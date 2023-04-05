@@ -16,25 +16,38 @@ class Program
         Class1 c1c = new("David", "Cross");
 
         Console.WriteLine("Record type:");
-        Console.WriteLine($"To string: { r1a }");
-        Console.WriteLine($"Are the two objects equal: { Equals(r1a, r1b) }");
-        Console.WriteLine($"Are the two objects reference equal: { ReferenceEquals(r1a, r1b) }");
-        Console.WriteLine($"Are the two objects ==: {  r1a == r1b }");
-        Console.WriteLine($"Are the two objects !=: {  r1a != r1c }");
-        Console.WriteLine($"Hash code of object A: { r1a.GetHashCode() }");
-        Console.WriteLine($"Hash code of object B: { r1b.GetHashCode() }");
-        Console.WriteLine($"Hash code of object C: { r1c.GetHashCode() }");
+        Console.WriteLine($"To string: {r1a}");
+        Console.WriteLine($"Are the two objects equal: {Equals(r1a, r1b)}");
+        Console.WriteLine($"Are the two objects reference equal: {ReferenceEquals(r1a, r1b)}");
+        Console.WriteLine($"Are the two objects ==: {r1a == r1b}");
+        Console.WriteLine($"Are the two objects !=: {r1a != r1c}");
+        Console.WriteLine($"Hash code of object A: {r1a.GetHashCode()}");
+        Console.WriteLine($"Hash code of object B: {r1b.GetHashCode()}");
+        Console.WriteLine($"Hash code of object C: {r1c.GetHashCode()}");
 
-        Console.WriteLine("*******************************");
+        Console.WriteLine("**********************************");
 
         Console.WriteLine("Class type:");
         Console.WriteLine($"To string: {c1a}");
-        Console.WriteLine($"Are the two objects equal: { Equals(c1a, c1b) }");
-        Console.WriteLine($"Are the two objects ==: { c1a == c1b }");
-        Console.WriteLine($"Are the two objects !=: { c1a != c1c }");
+        Console.WriteLine($"Are the two objects equal: {Equals(c1a, c1b)}");
+        Console.WriteLine($"Are the two objects ==: {c1a == c1b}");
+        Console.WriteLine($"Are the two objects !=: {c1a != c1c}");
         Console.WriteLine($"Hash code of object A: {c1a.GetHashCode()}");
         Console.WriteLine($"Hash code of object B: {c1b.GetHashCode()}");
         Console.WriteLine($"Hash code of object C: {c1c.GetHashCode()}");
+        
+        // Deconstructor
+        var (fn, ln) = r1a;
+        Console.WriteLine($"Value of fn is: {fn} and value of ln is {ln}.");
+
+        // "with" copies when changing value of records FirstName
+        Record1 r1d = r1a with
+        {
+            FirstName = "Jon"
+        };
+        Console.WriteLine($"Jon's record: { r1d }");
+
+
         Console.ReadLine();
     }
     // Record is a "fancy class"
@@ -51,6 +64,16 @@ class Program
         {
             FirstName = firstName;
             LastName = lastName;
+        }
+        /// <summary>
+        ///
+        /// </summary>
+        /// <param name="FirstName"></param>
+        /// <param name="LastName"></param>
+        public void Deconstruct(out string FirstName, out string LastName)
+        {
+            FirstName = this.FirstName; 
+            LastName = this.LastName;
         }
     }
 }
